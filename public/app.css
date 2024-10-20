@@ -21,8 +21,14 @@ body {
 
 .message {
   font-size: 1.6em;
-  opacity: 0;
-  transition: opacity 2s;
+}
+
+.fadeIn {
+  animation: 2s fadeIn;
+}
+
+.fadeInOut {
+  animation: 5s fadeInOut;
 }
 
 .inputContainer {
@@ -30,8 +36,7 @@ body {
   gap: 12px;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transition: opacity 2s;
+  animation: 2s fadeIn;
 }
 
 .responseContainer {
@@ -42,13 +47,33 @@ body {
   justify-content: center;
 }
 
-.response {
-  grid-area: 1/1;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.visible {
-  opacity: 1;
-  transition: opacity 0.5s;
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.response {
+  grid-area: 1/1;
+  animation: 2s fadeIn backwards;
 }
 
 input,

@@ -15,56 +15,39 @@ const renderApp = () => {
     messageEl.id = "message";
     messageEl.innerHTML = "Think of someone special in your life.";
     messageEl.classList.add("message");
-    appEl.appendChild(messageEl);
-    setTimeout(
-      () => messageEl.classList.add("visible"),
-      ANIMATION_DELAY_THRESHOLD
-    );
-    appState = "intro";
-    renderApp();
-    return;
-  }
-  if (appState === "intro") {
-    setTimeout(() => {
-      appState = "transition";
-      renderApp();
-    }, 2500);
-    return;
-  }
-  if (appState === "transition") {
-    const messageEl = document.getElementById("message");
-    messageEl.classList.remove("visible");
-    setTimeout(() => {
+    messageEl.classList.add("fadeInOut");
+    messageEl.addEventListener("animationend", () => {
       appState = "question";
+      messageEl.remove();
       renderApp();
-    }, 2000);
+    });
+    appEl.appendChild(messageEl);
     return;
   }
   if (appState === "question") {
-    const messageEl = document.getElementById("message");
+    const messageEl = document.createElement("div");
+    messageEl.id = "message";
+    messageEl.classList.add("message");
+    messageEl.classList.add("fadeIn");
     messageEl.innerHTML = "What would you say to them if you weren’t scared?";
+    appEl.appendChild(messageEl);
     setTimeout(() => {
-      messageEl.classList.add("visible");
-      setTimeout(() => {
-        const inputEl = document.createElement("input");
-        inputEl.id = "input";
-        const submitEl = document.createElement("button");
-        submitEl.type = "submit";
-        submitEl.innerHTML = "Submit";
-        submitEl.id = "submitButton";
-        const inputContainerEl = document.createElement("div");
-        inputContainerEl.id = "inputContainer";
-        inputContainerEl.classList.add("inputContainer");
-        inputContainerEl.appendChild(inputEl);
-        inputContainerEl.appendChild(submitEl);
-        messageEl.parentNode.appendChild(inputContainerEl);
-        setTimeout(() => {
-          inputContainerEl.classList.add("visible");
-          appState = "waitingForInput";
-          renderApp();
-        }, ANIMATION_DELAY_THRESHOLD);
-      }, 2500);
-    }, ANIMATION_DELAY_THRESHOLD);
+      const inputEl = document.createElement("input");
+      inputEl.id = "input";
+      const submitEl = document.createElement("button");
+      submitEl.type = "submit";
+      submitEl.innerHTML = "Submit";
+      submitEl.id = "submitButton";
+      const inputContainerEl = document.createElement("div");
+      inputContainerEl.id = "inputContainer";
+      inputContainerEl.classList.add("inputContainer");
+      inputContainerEl.appendChild(inputEl);
+      inputContainerEl.appendChild(submitEl);
+      messageEl.parentNode.appendChild(inputContainerEl);
+      inputContainerEl.classList.add("visible");
+      appState = "waitingForInput";
+      renderApp();
+    }, 2500);
     return;
   }
   if (appState === "waitingForInput") {
@@ -102,8 +85,9 @@ const renderApp = () => {
         const scale = Math.random() + 0.5;
         const x = (Math.random() - 0.5) * window.innerWidth;
         const y = (Math.random() - 0.5) * window.innerHeight;
+        const animationDelay = `${Math.random() * 5}s`;
         responseEl.style.transform = `translateX(${x}px) translateY(${y}px) scale(${scale})`;
-        console.log(responseEl.style.transform);
+        responseEl.style.animationDelay = animationDelay;
         responseContainerEl.appendChild(responseEl);
       });
       appEl.appendChild(responseContainerEl);
