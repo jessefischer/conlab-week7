@@ -12,23 +12,15 @@ body {
   font-family: sans-serif;
   text-align: center;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   align-items: center;
   justify-content: center;
-  gap: 24px;
 }
 
 .message {
   font-size: 1.6em;
-}
-
-.fadeIn {
-  animation: 2s fadeIn;
-}
-
-.fadeInOut {
-  animation: 5s fadeInOut;
+  grid-area: 1/1;
+  transition: transform 1s;
 }
 
 .inputContainer {
@@ -37,6 +29,11 @@ body {
   align-items: center;
   justify-content: center;
   animation: 2s fadeIn;
+  grid-area: 1/1;
+  position: relative;
+  top: 1.5em;
+  animation-delay: 0.5s;
+  animation-fill-mode: backwards;
 }
 
 .responseContainer {
@@ -47,12 +44,37 @@ body {
   justify-content: center;
 }
 
+.shiftUp {
+  transform: translateY(-1.5em);
+}
+
+.fadeIn {
+  animation: 2s fadeIn;
+}
+
+.fadeInOut {
+  animation: 5s fadeInOut;
+}
+
+.fadeOut {
+  animation: 1s fadeOut;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
 

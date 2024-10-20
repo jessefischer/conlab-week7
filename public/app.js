@@ -36,15 +36,15 @@ const renderApp = () => {
       inputEl.id = "input";
       const submitEl = document.createElement("button");
       submitEl.type = "submit";
-      submitEl.innerHTML = "Submit";
+      submitEl.innerHTML = "Share";
       submitEl.id = "submitButton";
       const inputContainerEl = document.createElement("div");
       inputContainerEl.id = "inputContainer";
       inputContainerEl.classList.add("inputContainer");
       inputContainerEl.appendChild(inputEl);
       inputContainerEl.appendChild(submitEl);
+      messageEl.classList.add("shiftUp");
       messageEl.parentNode.appendChild(inputContainerEl);
-      inputContainerEl.classList.add("visible");
       appState = "waitingForInput";
       renderApp();
     }, 2500);
@@ -52,9 +52,23 @@ const renderApp = () => {
   }
   if (appState === "waitingForInput") {
     const submitButtonEl = document.getElementById("submitButton");
-    submitButtonEl.onclick = async () => {
-      const inputButtonEl = document.getElementById("input");
-      const input = inputButtonEl.value;
+    submitButtonEl.onclick = () => {
+      const messageEl = document.getElementById("message");
+      const inputContainerEl = document.getElementById("inputContainer");
+      [messageEl, inputContainerEl].forEach((el) => {
+        el.classList.remove("fadeIn");
+        el.addEventListener("animationend", () => el.remove());
+        el.classList.add("fadeOut");
+      });
+      appState = "waitingForResponses";
+      renderApp();
+    };
+    return;
+  }
+  if (appState === "waitingForResponses") {
+    const inputButtonEl = document.getElementById("input");
+    const input = inputButtonEl.value;
+    (async () => {
       const response = await fetch("submit", {
         method: "POST",
         headers: {
@@ -63,34 +77,28 @@ const renderApp = () => {
         body: JSON.stringify({ input }),
       });
       responses = await response.json();
-      appState = "renderingResponses";
-      renderApp();
-    };
+      setTimeout(() => {
+        appState = "renderingResponses";
+        renderApp();
+      }, 1000);
+    })();
     return;
   }
   if (appState === "renderingResponses") {
-    const messageEl = document.getElementById("message");
-    const inputContainerEl = document.getElementById("inputContainer");
-    [messageEl, inputContainerEl].forEach((el) =>
-      el.classList.remove("visible")
-    );
-    setTimeout(() => {
-      [messageEl, inputContainerEl].forEach((el) => el.remove());
-      const responseContainerEl = document.createElement("div");
-      responseContainerEl.classList.add("responseContainer");
-      responses.forEach((response) => {
-        const responseEl = document.createElement("div");
-        responseEl.classList.add("response");
-        responseEl.innerHTML = response;
-        const scale = Math.random() + 0.5;
-        const x = (Math.random() - 0.5) * window.innerWidth;
-        const y = (Math.random() - 0.5) * window.innerHeight;
-        const animationDelay = `${Math.random() * 5}s`;
-        responseEl.style.transform = `translateX(${x}px) translateY(${y}px) scale(${scale})`;
-        responseEl.style.animationDelay = animationDelay;
-        responseContainerEl.appendChild(responseEl);
-      });
-      appEl.appendChild(responseContainerEl);
-    }, 2000);
+    const responseContainerEl = document.createElement("div");
+    responseContainerEl.classList.add("responseContainer");
+    responses.forEach((response) => {
+      const responseEl = document.createElement("div");
+      responseEl.classList.add("response");
+      responseEl.innerHTML = response;
+      const scale = Math.random() + 0.5;
+      const x = (Math.random() - 0.5) * window.innerWidth;
+      const y = (Math.random() - 0.5) * window.innerHeight;
+      const animationDelay = `${Math.random() * 5}s`;
+      responseEl.style.transform = `translateX(${x}px) translateY(${y}px) scale(${scale})`;
+      responseEl.style.animationDelay = animationDelay;
+      responseContainerEl.appendChild(responseEl);
+    });
+    appEl.appendChild(responseContainerEl);
   }
 };
