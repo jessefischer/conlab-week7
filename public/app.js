@@ -1,6 +1,6 @@
 const ANIMATION_DELAY_THRESHOLD = 50;
 
-let appState = "preload"; // "preload" | "intro" | "idle" |
+let appState = "intro"; // "intro" | "question" | "waitingForInput" | "renderingResponses"
 let responses = [];
 
 window.addEventListener("load", () => {
@@ -10,7 +10,7 @@ window.addEventListener("load", () => {
 const renderApp = () => {
   console.log({ appState });
   const appEl = document.getElementById("app");
-  if (appState === "preload") {
+  if (appState === "intro") {
     const messageEl = document.createElement("div");
     messageEl.id = "message";
     messageEl.innerHTML = "Think of someone special in your life.";

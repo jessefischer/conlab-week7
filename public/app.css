@@ -73,7 +73,7 @@ body {
 
 .response {
   grid-area: 1/1;
-  animation: 2s fadeIn backwards;
+  animation: 5s fadeInOut backwards infinite;
 }
 
 input,
