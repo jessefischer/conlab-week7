@@ -1,6 +1,6 @@
 const ANIMATION_DELAY_THRESHOLD = 50;
 
-let appState = "intro"; // "intro" | "question" | "waitingForInput" | "renderingResponses"
+let appState = "intro"; // "intro" | "question" | "waitingForInput" | "waitingForResponses" | "renderingResponses"
 let responses = [];
 
 window.addEventListener("load", () => {
@@ -92,7 +92,7 @@ const renderApp = () => {
       responseEl.classList.add("response");
       responseEl.innerHTML = response;
       const scale = Math.random() + 0.5;
-      const x = (Math.random() - 0.5) * window.innerWidth;
+      const x = (Math.random() - 0.5) * window.innerWidth * 0.8;
       const y = (Math.random() - 0.5) * window.innerHeight;
       const animationDelay = `${Math.random() * 5}s`;
       responseEl.style.transform = `translateX(${x}px) translateY(${y}px) scale(${scale})`;

@@ -15,25 +15,34 @@ body {
   display: grid;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .message {
   font-size: 1.6em;
   grid-area: 1/1;
   transition: transform 1s;
+  padding-inline: 1em;
+  text-wrap: pretty;
 }
 
 .inputContainer {
   display: flex;
+  flex-direction: column;
   gap: 12px;
   align-items: center;
   justify-content: center;
   animation: 2s fadeIn;
   grid-area: 1/1;
   position: relative;
-  top: 1.5em;
+  top: 3em;
   animation-delay: 0.5s;
   animation-fill-mode: backwards;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    top: 1.5em;
+  }
 }
 
 .responseContainer {
@@ -45,7 +54,11 @@ body {
 }
 
 .shiftUp {
-  transform: translateY(-1.5em);
+  transform: translateY(-3em);
+
+  @media (min-width: 768px) {
+    transform: translateY(-1.5em);
+  }
 }
 
 .fadeIn {
@@ -105,7 +118,11 @@ button {
 
 input {
   padding: 12px;
-  width: 30em;
+  width: 12em;
+
+  @media (min-width: 768px) {
+    width: 18em;
+  }
 }
 
 button {
