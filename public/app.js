@@ -1,4 +1,8 @@
-const ANIMATION_DELAY_THRESHOLD = 50;
+const STRINGS = {
+  intro: "Think of someone you care deeply about.",
+  prompt: "What would you say to them if you weren’t scared?",
+  cta: "Speak Up",
+};
 
 let appState = "intro"; // "intro" | "question" | "waitingForInput" | "waitingForResponses" | "renderingResponses"
 let responses = [];
@@ -13,7 +17,7 @@ const renderApp = () => {
   if (appState === "intro") {
     const messageEl = document.createElement("div");
     messageEl.id = "message";
-    messageEl.innerHTML = "Think of someone special in your life.";
+    messageEl.innerHTML = STRINGS.intro;
     messageEl.classList.add("message");
     messageEl.classList.add("fadeInOut");
     messageEl.addEventListener("animationend", () => {
@@ -29,14 +33,14 @@ const renderApp = () => {
     messageEl.id = "message";
     messageEl.classList.add("message");
     messageEl.classList.add("fadeIn");
-    messageEl.innerHTML = "What would you say to them if you weren’t scared?";
+    messageEl.innerHTML = STRINGS.prompt;
     appEl.appendChild(messageEl);
     setTimeout(() => {
       const inputEl = document.createElement("input");
       inputEl.id = "input";
       const submitEl = document.createElement("button");
       submitEl.type = "submit";
-      submitEl.innerHTML = "Share";
+      submitEl.innerHTML = STRINGS.cta;
       submitEl.id = "submitButton";
       const inputContainerEl = document.createElement("div");
       inputContainerEl.id = "inputContainer";
