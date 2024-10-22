@@ -9,7 +9,8 @@ body {
 }
 
 #app {
-  font-family: sans-serif;
+  font-family: "Overpass", sans-serif;
+  font-weight: 200;
   text-align: center;
   height: 100vh;
   display: grid;
@@ -117,12 +118,14 @@ body {
 
 input,
 button {
+  font-family: "Overpass", sans-serif;
   font-size: 1.2em;
 }
 
 input {
   padding: 12px;
   width: 12em;
+  font-weight: 200;
 
   &:focus {
     outline: 1px lightcoral dashed;
@@ -141,6 +144,7 @@ button {
   background-color: lightcoral;
   color: white;
   border: none;
+  font-weight: 400;
 
   &:focus {
     outline: 1px black dashed;
