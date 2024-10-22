@@ -108,6 +108,10 @@ body {
 
 .response {
   grid-area: 1/1;
+  transform-origin: 50% 50% -600px;
+  width: 16em;
+  text-wrap: pretty;
+  text-align: center;
   animation: 5s fadeInOut backwards infinite;
 }
 

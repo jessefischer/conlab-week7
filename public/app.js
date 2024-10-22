@@ -91,11 +91,11 @@ const renderApp = () => {
       const responseEl = document.createElement("div");
       responseEl.classList.add("response");
       responseEl.innerHTML = response;
-      const scale = Math.random() + 0.5;
-      const x = (Math.random() - 0.5) * window.innerWidth * 0.8;
-      const y = (Math.random() - 0.5) * window.innerHeight;
+      const scale = Math.random() * 0.25 + 0.25;
+      const xRotate = (Math.random() - 0.5) * 30;
+      const yRotate = (Math.random() - 0.5) * 50;
       const animationDelay = `${Math.random() * 5}s`;
-      responseEl.style.transform = `translateX(${x}px) translateY(${y}px) scale(${scale})`;
+      responseEl.style.transform = `perspective(800px) rotate3d(0, 1, 0, ${yRotate}deg) rotate3d(1, 0, 0, ${xRotate}deg) scale(${scale})`;
       responseEl.style.animationDelay = animationDelay;
       responseContainerEl.appendChild(responseEl);
     });
